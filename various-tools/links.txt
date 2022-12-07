@@ -1,0 +1,21 @@
+Clouds SVG CSS
+https://codepen.io/yuanchuan/pen/OBRrrO/f70a1f9435dc90197b253b26b4d69d42
+
+Clouds 3d
+https://www.clicktorelease.com/blog/how-to-make-clouds-with-css-3d/
+
+Mountains pure CSS
+https://codepen.io/Christopherallen/pen/WNoLOB
+
+Mountains + sun moving scenario
+https://codepen.io/y0natan/pen/MVvxBM
+
+backgrounds
+- https://www.svgbackgrounds.com/
+- https://bgjar.com/
+
+Sprite animation
+- https://dev.to/jpuls/simple-sprite-animations-for-games-on-the-web-digitalocean-hackathon-blog-part-1-ndb
+- https://levelup.gitconnected.com/three-ways-to-animate-sprite-sheet-image-a5c000f0c579
+
+Sprite generatorder-https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_light&head=Human_male_light 1
