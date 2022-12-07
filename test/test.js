@@ -1,31 +1,35 @@
 bottom = 300;
 var t = Date.now();
-var x = 0;
-var y = bottom;
-var canvas = document.getElementById("canvas");
-canvas.innerText = "ciao";
-var context = canvas.getContext("2d");
 var speed = 20;
-var onAir = false;
 var cont = 0;
 
-var rightArrowDown = false;
-var leftArrowDown = false;
+//coordinates 
+var x = 0;
+var y = bottom;
+//prendo il canvas dall'HTML________________________________________________________________
+var canvas = document.getElementById("canvas");
+var mySquare = canvas.getContext("2d");
+//________________________________________________________________________________________________________________________________
 
+//generazione componente da js ___________________________________________________________________
+var myCanvas = document.createElement("canvas");
+document.body.appendChild(myCanvas); 
+var ctx = canvas.getContext("2d");
+//________________________________________________________________________________________________________________________________
+
+
+//Oggetto anonimo contentente lo stato dei movimenti ___________________________________________________________________
 var movements = {
   goingRight: false,
   goingLeft: false,
   isJumping: false,
 };
 
-//functions ------------------------
-
+//L I S T N E N E R S ----------------------------------------------------------------
 window.addEventListener("keydown", lateralMovement, false);
 // window.addEventListener("keydown", startMove, false);
 
-//JUMPING FUN ----------------------------------------------------------------
-//cant jump anda translate simultaneously
-//ho provato a gestire le cose con 2 eventi diversi, ma non è questa la solution
+//JUMPING FUN Listener----------------------------------------------------------------
 window.addEventListener("keypress", (key) => {
   if (key.code === "Space" && y == bottom) {
     cont = 0;
@@ -35,6 +39,45 @@ window.addEventListener("keypress", (key) => {
 
 window.addEventListener("keyup", stopMove, false);
 
+
+//FUNCTIONS ----------------------------------------------------------------
+
+//funzione per muovere un oggetto a dx
+function goRight() {
+  if (movements.goingRight) {
+    x += speed;
+    draw();
+    console.log("going right");
+    window.requestAnimationFrame(goRight);
+  }
+}
+ //funzione per muovere un oggetto a sx
+function goLeft() {
+  if (movements.goingLeft) {
+    x -= speed;
+    draw();
+    console.log("going left");
+    window.requestAnimationFrame(goLeft);
+
+  }
+}
+
+//funzione del salto;
+function jump() {
+  if (cont < 20) {
+    y -= 10;
+    draw();
+    cont++;
+    movements.isJumping = true;
+    window.requestAnimationFrame(jump);
+    console.log("onair" + onAir + " cont:" + cont);
+  } else {
+    movements.isJumping = false;
+    console.log("onair" + onAir + " cont:" + cont);
+  }
+}
+
+//setter dei movimenti a false;
 function stopMove(e) {
   switch (e.keyCode) {
     case 37:
@@ -50,39 +93,7 @@ function stopMove(e) {
   }
 }
 
-function goRight() {
-  if (movements.goingRight) {
-    x += speed;
-    draw();
-    console.log("going right");
-    window.requestAnimationFrame(goRight);
-  }
-}
-
-function goLeft() {
-  if (movements.goingLeft) {
-    x -= speed;
-    draw();
-    console.log("going left");
-    window.requestAnimationFrame(goLeft);
-
-  }
-}
-
-function jump() {
-  if (cont < 20) {
-    y -= 10;
-    draw();
-    cont++;
-    movements.isJumping = true;
-    window.requestAnimationFrame(jump);
-    console.log("onair" + onAir + " cont:" + cont);
-  } else {
-    movements.isJumping = false;
-    console.log("onair" + onAir + " cont:" + cont);
-  }
-}
-
+//funzione che richiama i movimenti laterali;
 function lateralMovement(e) {
   switch (e.keyCode) {
     case 37:
@@ -104,6 +115,8 @@ function borderCheck() {
   y = y > bottom ? bottom : y; //vedemo se funzia
 }
 
+//PHYSICS__________________________________________________________________
+//forza di gravità(da implementare)
 function gravity() {
   if (!movements.isJumping) {
     y += speed / 2;
@@ -112,13 +125,22 @@ function gravity() {
   window.requestAnimationFrame(gravity);
 }
 
+//funzione che disegna il mio quadrato -------------------------------- 
 function draw() {
-  context.clearRect(0, 0, 600, 400);
-  context.beginPath();
+  mySquare.clearRect(0, 0, 600, 400);
+  mySquare.beginPath();
   borderCheck();
-  context.rect(x, y, 100, 100);
-  context.fillStyle = "red";
-  context.fill();
+  mySquare.rect(x, y, 100, 100);
+  mySquare.fillStyle = "red";
+  mySquare.fill();
+  mySquare.closePath();
+
+  ctx.beginPath();
+  borderCheck();
+  ctx.rect(10, 10, 100, 100);
+  ctx.fillStyle = "green";
+  ctx.fill();
+  ctx.closePath(); 
 }
 
 window.onload = function () {
