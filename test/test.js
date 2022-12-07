@@ -39,10 +39,12 @@ function stopMove(e) {
   switch (e.keyCode) {
     case 37:
       movements.goingLeft = false;
+      console.log("left key released");
       window.cancelAnimationFrame(goLeft());
       break;
     case 39:
       movements.goingRight = false;
+      console.log("right key released");
       window.cancelAnimationFrame(goRight());
       break;
   }
@@ -52,8 +54,8 @@ function goRight() {
   if (movements.goingRight) {
     x += speed;
     draw();
-    // window.requestAnimationFrame(goRight());
     console.log("going right");
+    window.requestAnimationFrame(goRight);
   }
 }
 
@@ -61,8 +63,23 @@ function goLeft() {
   if (movements.goingLeft) {
     x -= speed;
     draw();
-    // window.requestAnimationFrame(goLeft());
     console.log("going left");
+    window.requestAnimationFrame(goLeft);
+
+  }
+}
+
+function jump() {
+  if (cont < 20) {
+    y -= 10;
+    draw();
+    cont++;
+    movements.isJumping = true;
+    window.requestAnimationFrame(jump);
+    console.log("onair" + onAir + " cont:" + cont);
+  } else {
+    movements.isJumping = false;
+    console.log("onair" + onAir + " cont:" + cont);
   }
 }
 
@@ -70,46 +87,14 @@ function lateralMovement(e) {
   switch (e.keyCode) {
     case 37:
       movements.goingLeft = true;
-      if (movements.goingLeft) goLeft();
-      window.requestAnimationFrame(goLeft());
-
       break;
     case 39:
       movements.goingRight = true;
-      if (movements.goingRight) goRight();
-      window.requestAnimationFrame(goRight());
       break;
   }
-
+  goLeft();
+  goRight();
   console.log(e);
-  draw();
-}
-
-// function startMove(e) {
-//   switch (e.keyCode) {
-//     case 37:
-//       leftArrowDown = true;
-//       break;
-//     case 39:
-//       rightArrowDown = true;
-//       break;
-//   }
-// }
-
-
-
-function jump() {
-  if (cont < 20) {
-    y -= 10;
-    draw();
-    cont++;
-    onAir = true;
-    window.requestAnimationFrame(jump);
-    console.log("onair" + onAir + " cont:" + cont);
-  } else {
-    onAir = false;
-    console.log("onair" + onAir + " cont:" + cont);
-  }
 }
 
 function borderCheck() {
@@ -120,7 +105,7 @@ function borderCheck() {
 }
 
 function gravity() {
-  if (!onAir) {
+  if (!movements.isJumping) {
     y += speed / 2;
     draw();
   }
