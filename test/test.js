@@ -58,7 +58,6 @@ function goLeft() {
     draw();
     console.log("going left");
     window.requestAnimationFrame(goLeft);
-
   }
 }
 
