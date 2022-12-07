@@ -11,10 +11,20 @@ var cont = 0;
 
 var rightArrowDown = false;
 var leftArrowDown = false;
+
 //functions ------------------------
 
 window.addEventListener("keydown", move, false);
 // window.addEventListener("keydown", startMove, false);
+
+
+//JUMPING FUN ----------------------------------------------------------------
+window.addEventListener("keypress", (e) => {
+  if (e.code === "Space" && y == bottom) {
+    cont = 0;
+    jump();
+  }
+});
 
 window.addEventListener("keyup", stopMove, false);
 
@@ -30,12 +40,12 @@ function move(e) {
       //   goRight();
       x += 10;
       break;
-    case 32:
-      if (y == bottom) {
-        cont = 0;
-        jump();
-      }
-      break;
+    // case 32:
+    //   if (y == bottom) {
+    //     cont = 0;
+    //     jump();
+    //   }
+    //   break;
   }
 
   console.log(e);

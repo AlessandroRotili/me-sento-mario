@@ -19,3 +19,6 @@ Sprite animation
 - https://levelup.gitconnected.com/three-ways-to-animate-sprite-sheet-image-a5c000f0c579
 
 Sprite generatorder-https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_light&head=Human_male_light 1
+
+
+https://stackoverflow.com/questions/14526494/game-keyboard-input-simultaneously-run-jump
