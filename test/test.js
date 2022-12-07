@@ -12,17 +12,22 @@ var cont = 0;
 var rightArrowDown = false;
 var leftArrowDown = false;
 
+var movements = {
+  goingRight: false,
+  goingLeft: false,
+  isJumping: false,
+};
+
 //functions ------------------------
 
-window.addEventListener("keydown", move, false);
+window.addEventListener("keydown", lateralMovement, false);
 // window.addEventListener("keydown", startMove, false);
-
 
 //JUMPING FUN ----------------------------------------------------------------
 //cant jump anda translate simultaneously
 //ho provato a gestire le cose con 2 eventi diversi, ma non è questa la solution
-window.addEventListener("keypress", (e) => {
-  if (e.code === "Space" && y == bottom) {
+window.addEventListener("keypress", (key) => {
+  if (key.code === "Space" && y == bottom) {
     cont = 0;
     jump();
   }
@@ -30,24 +35,50 @@ window.addEventListener("keypress", (e) => {
 
 window.addEventListener("keyup", stopMove, false);
 
-function move(e) {
+function stopMove(e) {
   switch (e.keyCode) {
     case 37:
-      //   leftArrowDown = true;
-      //   goLeft();
-      x -= 10;
+      movements.goingLeft = false;
+      window.cancelAnimationFrame(goLeft());
       break;
     case 39:
-      //   rightArrowDown = true;
-      //   goRight();
-      x += 10;
+      movements.goingRight = false;
+      window.cancelAnimationFrame(goRight());
       break;
-    // case 32:
-    //   if (y == bottom) {
-    //     cont = 0;
-    //     jump();
-    //   }
-    //   break;
+  }
+}
+
+function goRight() {
+  if (movements.goingRight) {
+    x += speed;
+    draw();
+    // window.requestAnimationFrame(goRight());
+    console.log("going right");
+  }
+}
+
+function goLeft() {
+  if (movements.goingLeft) {
+    x -= speed;
+    draw();
+    // window.requestAnimationFrame(goLeft());
+    console.log("going left");
+  }
+}
+
+function lateralMovement(e) {
+  switch (e.keyCode) {
+    case 37:
+      movements.goingLeft = true;
+      if (movements.goingLeft) goLeft();
+      window.requestAnimationFrame(goLeft());
+
+      break;
+    case 39:
+      movements.goingRight = true;
+      if (movements.goingRight) goRight();
+      window.requestAnimationFrame(goRight());
+      break;
   }
 
   console.log(e);
@@ -64,34 +95,8 @@ function move(e) {
 //       break;
 //   }
 // }
-function stopMove(e) {
-  switch (e.keyCode) {
-    case 37:
-      leftArrowDown = false;
-      window.cancelAnimationFrame(goLeft());
-      break;
-    case 39:
-      rightArrowDown = false;
-      window.cancelAnimationFrame(goLeft());
-      break;
-  }
-}
 
-function goRight() {
-  if (rightArrowDown) {
-    x += speed;
-    draw();
-    window.requestAnimationFrame(goRight());
-  }
-}
 
-function goLeft() {
-  if (leftArrowDown) {
-    x -= speed;
-    draw();
-    window.requestAnimationFrame(goLeft());
-  }
-}
 
 function jump() {
   if (cont < 20) {
