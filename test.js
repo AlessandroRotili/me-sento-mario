@@ -19,6 +19,8 @@ window.addEventListener("keydown", move, false);
 
 
 //JUMPING FUN ----------------------------------------------------------------
+//cant jump anda translate simultaneously
+//ho provato a gestire le cose con 2 eventi diversi, ma non è questa la solution
 window.addEventListener("keypress", (e) => {
   if (e.code === "Space" && y == bottom) {
     cont = 0;
