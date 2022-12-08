@@ -1,4 +1,4 @@
-bottom = 300;
+bottom = 350;
 var t = Date.now();
 var speed = 20;
 var cont = 0;
@@ -12,9 +12,9 @@ var mySquare = canvas.getContext("2d");
 //________________________________________________________________________________________________________________________________
 
 //generazione componente da js ___________________________________________________________________
-var myCanvas = document.createElement("canvas");
-document.body.appendChild(myCanvas); 
-var ctx = canvas.getContext("2d");
+// var myCanvas = document.createElement("canvas");
+// document.body.appendChild(myCanvas); 
+// var ctx = canvas.getContext("2d");
 //________________________________________________________________________________________________________________________________
 
 
@@ -109,7 +109,7 @@ function lateralMovement(e) {
 
 function borderCheck() {
   x = x < 0 ? 0 : x;
-  x = x > 500 ? 500 : x;
+  x = x > 550 ? 550 : x;
   y = y < 0 ? 0 : y;
   y = y > bottom ? bottom : y; //vedemo se funzia
 }
@@ -119,7 +119,7 @@ function borderCheck() {
 function gravity() {
   if (!movements.isJumping) {
     y += speed / 2;
-    draw();
+    draw(); 
   }
   window.requestAnimationFrame(gravity);
 }
@@ -129,17 +129,17 @@ function draw() {
   mySquare.clearRect(0, 0, 600, 400);
   mySquare.beginPath();
   borderCheck();
-  mySquare.rect(x, y, 100, 100);
+  mySquare.rect(x, y, 50, 50);
   mySquare.fillStyle = "red";
   mySquare.fill();
   mySquare.closePath();
 
-  ctx.beginPath();
-  borderCheck();
-  ctx.rect(10, 10, 100, 100);
-  ctx.fillStyle = "green";
-  ctx.fill();
-  ctx.closePath(); 
+  // ctx.beginPath();
+  // borderCheck();
+  // ctx.rect(10, 10, 100, 100);
+  // ctx.fillStyle = "green";
+  // ctx.fill();
+  // ctx.closePath(); 
 }
 
 window.onload = function () {
