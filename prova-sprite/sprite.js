@@ -1,11 +1,13 @@
 var animationInterval;
 var spriteSheet = document.getElementById("sprite-image");
-var widthOfSpriteSheet = 1472;
+var widthOfSpriteSheet = 1472; //sbagliati
 var widthOfEachSprite = 184;
 
 function stopAnimation() {
   clearInterval(animationInterval);
 }
+
+// ___________________________________________________________________
 
 function startAnimation() {
   var position = widthOfEachSprite; //start position for the image
@@ -24,6 +26,6 @@ function startAnimation() {
     //reset the position to show first sprite after the last one
   }, speed);
 }
-
+//___________________________________________________________________
 //Start animation
 startAnimation();
