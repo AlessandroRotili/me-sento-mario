@@ -7,10 +7,14 @@
     <title>Me sento Mario</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
-    <canvas onkeydown="move(event)" id="canvas" width="600" height="400">
-      Your browser does not support the HTML5 canvas tag.
-    </canvas>
+  <body class="d-flex j-content align-center">
+    <div id="game-wrapper">
+      <canvas onkeydown="move(event)" id="canvas" width="600" height="400">
+        Your browser does not support the HTML5 canvas tag.
+      </canvas>
+      <div id="myDiv"></div>
+    </div>
+
     <script src="test.js"></script>
   </body>
 </html>

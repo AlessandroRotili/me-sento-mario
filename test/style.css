@@ -1,6 +1,41 @@
+body{
+    margin: 0;
+    height: 100vh;
+}
+
 #canvas {
-    width: 100%;
     border: 1px solid black;
-    background-image: url(background.gif);
+    /* background-image: url(background.gif); */
    }
+#game-wrapper {
+    position: relative;
+    background-color: black;
+    background-image: url(sfondo-largo.jpg);
+    background-repeat: no-repeat;
+    background-position: -10px 0px;
+    background-size: cover;
+}
+
+#myDiv{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border: solid 1px black;
+    width: 50px;
+    height: 100px;
+    background-color: chartreuse
    
+}   
+
+.d-flex{
+    display: flex;
+
+}
+
+.j-content{
+    justify-content: center;
+}
+
+.align-center{
+    align-items: center;
+}
