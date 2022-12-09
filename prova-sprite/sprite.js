@@ -1,7 +1,8 @@
 var animationInterval;
 var spriteSheet = document.getElementById("sprite-image");
-var widthOfSpriteSheet = 1472; //sbagliati
-var widthOfEachSprite = 184;
+var widthOfSpriteSheet = 832; //sbagliati
+var widthOfEachSprite = 832/13;
+var heightOfEachSprite = 64; //px
 
 function stopAnimation() {
   clearInterval(animationInterval);
@@ -15,7 +16,7 @@ function startAnimation() {
   const diff = widthOfEachSprite; //difference between two sprites
 
   animationInterval = setInterval(() => {
-    spriteSheet.style.backgroundPosition = `-${position}px 0px`;
+    spriteSheet.style.backgroundPosition = `-${position}px ${heightOfEachSprite*2}px`;
 
     if (position < widthOfSpriteSheet) {
       position = position + diff;
