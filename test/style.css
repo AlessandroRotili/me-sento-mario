@@ -24,8 +24,8 @@ body{
     width: 50px;
     height: 100px;
     background-color: chartreuse
-   
-}   
+
+}
 
 .d-flex{
     display: flex;
@@ -39,3 +39,11 @@ body{
 .align-center{
     align-items: center;
 }
+
+.sprite-image {
+    position: absolute;
+    height: 64px;
+    width: 64px;
+    background: url(sprite-sample.png)
+      0px 64px;
+  }
