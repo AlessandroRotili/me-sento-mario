@@ -1,35 +1,33 @@
 // import { spriteMovements,startAnimation} from '../prova-sprite/sprite.js'
-var bottom = 350;
+var bottom = 340;
 var t = Date.now();
 var speed = 20;
 var cont = 0;
 
-
-var animationInterval;
+var animationInterval = 0;
 // var spriteSheet = document.getElementById("sprite-image");
 var widthOfSpriteSheet = 832; //sbagliati
 var widthOfEachSprite = 832 / 13;
 var heightOfEachSprite = 64; //px
 
-//coordinates 
+//coordinates
 var x = 0;
 var y = bottom;
 //prendo il canvas dall'HTML________________________________________________________________
 var canvas = document.getElementById("canvas");
 var mySquare = canvas.getContext("2d");
 var spriteImage = document.createElement("div");
-spriteImage.classList.add("sprite-image")
-var gameWrapper = document.getElementById("game-wrapper")
-gameWrapper.appendChild(spriteImage)
+spriteImage.classList.add("sprite-image");
+var gameWrapper = document.getElementById("game-wrapper");
+gameWrapper.appendChild(spriteImage);
 
 //________________________________________________________________________________________________________________________________
 
 //generazione componente da js ___________________________________________________________________
 // var myCanvas = document.createElement("canvas");
-// document.body.appendChild(myCanvas); 
+// document.body.appendChild(myCanvas);
 // var ctx = canvas.getContext("2d");
 //________________________________________________________________________________________________________________________________
-
 
 //Oggetto anonimo contentente lo stato dei movimenti ___________________________________________________________________
 var movements = {
@@ -37,7 +35,6 @@ var movements = {
   goingLeft: false,
   isJumping: false,
 };
-
 
 //L I S T N E N E R S ----------------------------------------------------------------
 window.addEventListener("keydown", lateralMovement, false);
@@ -53,26 +50,27 @@ window.addEventListener("keypress", (key) => {
 
 window.addEventListener("keyup", stopMove, false);
 
-
+function stopAnimation() {
+  clearInterval(animationInterval);
+}
 //FUNCTIONS ----------------------------------------------------------------
 
 //funzione per muovere un oggetto a dx
 function goRight() {
   if (movements.goingRight) {
     x += speed;
-    draw();
-    // drawSprite(sprite.spriteMovements.walkDx);
+    // draw();
+    drawSprite();
     console.log("going right");
     window.requestAnimationFrame(goRight);
   }
 }
- //funzione per muovere un oggetto a sx
+//funzione per muovere un oggetto a sx
 function goLeft() {
   if (movements.goingLeft) {
     x -= speed;
-    draw();
-    
-    // drawSprite(sprite.spriteMovements.walkSx);
+    // draw();
+    drawSprite();
     console.log("going left");
     window.requestAnimationFrame(goLeft);
   }
@@ -82,7 +80,7 @@ function goLeft() {
 function jump() {
   if (cont < 20) {
     y -= 10;
-    draw();
+    // draw();
     drawSprite();
     cont++;
     movements.isJumping = true;
@@ -99,10 +97,12 @@ function stopMove(e) {
   switch (e.keyCode) {
     case 37:
       movements.goingLeft = false;
+      stopAnimation();
       console.log("left key released");
       break;
     case 39:
       movements.goingRight = false;
+      stopAnimation();
       console.log("right key released");
       break;
   }
@@ -135,13 +135,12 @@ function borderCheck() {
 function gravity() {
   if (!movements.isJumping) {
     y += speed / 2;
-    draw(); 
     drawSprite();
   }
   window.requestAnimationFrame(gravity);
 }
 
-//funzione che disegna il mio quadrato -------------------------------- 
+//funzione che disegna il mio quadrato --------------------------------
 function draw() {
   mySquare.clearRect(0, 0, 600, 400);
   mySquare.beginPath();
@@ -150,25 +149,26 @@ function draw() {
   mySquare.fillStyle = "red";
   mySquare.fill();
   mySquare.closePath();
- 
 }
 
-function drawSprite(movement) {
-  spriteImage.style.left = x+"px"
-  spriteImage.style.top = y+"px"
-  startAnimation(movement,spriteImage)
+function drawSprite() {
+  borderCheck();
+  spriteImage.style.left = x + "px";
+  spriteImage.style.top = y + "px";
+  if (movements.goingRight) startAnimation(spriteMovements.walkDx, spriteImage);
+  else if (movements.goingLeft)
+    startAnimation(spriteMovements.walkSx, spriteImage);
 }
 
 window.onload = function () {
   //var t = Date.now();
-  console.log(spriteMovements)
+  console.log();
   gravity();
-  draw();
-  drawSprite(spriteMovements.walkSx);
+  // draw();
+  drawSprite();
 };
 
-
-export const spriteMovements = {
+const spriteMovements = {
   walkDx: {
     row: 10, //every movement has some properties
     numOfImg: 9,
@@ -181,13 +181,15 @@ export const spriteMovements = {
 
 // ANIMATIONS FUNCTION___________________________________________________________________
 
-export function startAnimation(movement,spriteSheet) {
+function startAnimation(movement, spriteSheet) {
   var position = widthOfEachSprite; //start position for the image
   const speed = 100; //in millisecond(ms)
   const diff = widthOfEachSprite; //difference between two sprites
 
   animationInterval = setInterval(() => {
-    spriteSheet.style.backgroundPosition = `-${position}px ${heightOfEachSprite * movement.row}px`;
+    spriteSheet.style.backgroundPosition = `-${position}px ${
+      heightOfEachSprite * movement.row
+    }px`;
 
     drawSprite(sprite.spriteMovements.walkSx);
     if (position < widthOfSpriteSheet) {
