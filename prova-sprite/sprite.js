@@ -11,7 +11,7 @@ function stopAnimation() {
 //List of movements
 spriteMovements = {
   walkDx: {
-    row: 10, //every movement ha some properties
+    row: 10, //every movement has some properties
     numOfImg: 9,
   },
   walkSx: {
