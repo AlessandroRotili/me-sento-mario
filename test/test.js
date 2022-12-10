@@ -97,15 +97,14 @@ function stopMove(e) {
   switch (e.keyCode) {
     case 37:
       movements.goingLeft = false;
-      stopAnimation();
       console.log("left key released");
       break;
     case 39:
       movements.goingRight = false;
-      stopAnimation();
       console.log("right key released");
       break;
   }
+  currentMovement = spriteMovements.nothing;
 }
 
 //funzione che richiama i movimenti laterali;
@@ -113,9 +112,11 @@ function lateralMovement(e) {
   switch (e.keyCode) {
     case 37:
       movements.goingLeft = true;
+      currentMovement = spriteMovements.walkSx;
       break;
     case 39:
       movements.goingRight = true;
+      currentMovement = spriteMovements.walkDx;
       break;
   }
   goLeft();
@@ -155,9 +156,6 @@ function drawSprite() {
   borderCheck();
   spriteImage.style.left = x + "px";
   spriteImage.style.top = y + "px";
-  if (movements.goingRight) startAnimation(spriteMovements.walkDx, spriteImage);
-  else if (movements.goingLeft)
-    startAnimation(spriteMovements.walkSx, spriteImage);
 }
 
 window.onload = function () {
@@ -177,8 +175,13 @@ const spriteMovements = {
     row: 12,
     numOfImg: 9,
   },
+  nothing: {
+    row: 11,
+    numOfImg : 1
+  }
 };
 
+var currentMovement = spriteMovements.nothing; 
 // ANIMATIONS FUNCTION___________________________________________________________________
 
 function startAnimation(movement, spriteSheet) {
@@ -187,11 +190,8 @@ function startAnimation(movement, spriteSheet) {
   const diff = widthOfEachSprite; //difference between two sprites
 
   animationInterval = setInterval(() => {
-    spriteSheet.style.backgroundPosition = `-${position}px ${
-      heightOfEachSprite * movement.row
-    }px`;
+    spriteSheet.style.backgroundPosition = `-${position}px ${heightOfEachSprite * movement.row}px`;
 
-    drawSprite(sprite.spriteMovements.walkSx);
     if (position < widthOfSpriteSheet) {
       position = position + diff;
     } else {
@@ -205,3 +205,5 @@ function startAnimation(movement, spriteSheet) {
     //reset the position to show first sprite after the last one
   }, speed);
 }
+
+startAnimation(currentMovement, spriteImage);
