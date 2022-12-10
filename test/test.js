@@ -1,7 +1,7 @@
 // import { spriteMovements,startAnimation} from '../prova-sprite/sprite.js'
 var bottom = 340;
 var t = Date.now();
-var speed = 20;
+var speed = 2;
 var cont = 0;
 
 var animationInterval = 0;
@@ -206,4 +206,4 @@ function startAnimation(movement, spriteSheet) {
   }, speed);
 }
 
-startAnimation(currentMovement, spriteImage);
+startAnimation(spriteMovements.walkDx, spriteImage);
